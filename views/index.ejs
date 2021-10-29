@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: left;
+            margin: 0;
+            margin-left: 2px;
+            padding: 0;
+            height: auto;
+        }
+
+        .boxx {
+            justify-content: left;
+            flex-direction: column;
+            margin: 0;
+            margin-left: 2px;
+            padding: 0;
+            height: auto;
+        }
+
+        .box {
+            display: flex;
+            border: 1px solid rgb(110, 108, 108);
+            width: 600px;
+            height: 300px;
+        }
+
+
+        .box1 {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgb(110, 108, 108);
+            width: 600px;
+            height: 400px;
+        }
+
+        .upper-clss {
+            border: 1px solid rgb(126, 124, 124);
+            width: 500px;
+            height: 300px;
+            color: rgb(117, 248, 29);
+        }
+
+        .upper-clss h3 {
+            display: fixed;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 3px;
+            margin: auto;
+            margin-top: 0;
+            color: rgb(102, 255, 0);
+            background-color: aliceblue;
+
+        }
+
+        .upper-clss {
+            font-style: bold;
+            font-size: large;
+        }
+
+        #expence {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            color: rgb(238, 140, 27);
+        }
+
+        #expence h3 {
+            color: rgb(248, 197, 138);
+        }
+
+        #income {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            color: rgb(52, 241, 35);
+        }
+
+        #assets {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #liabilites {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            color: rgb(238, 140, 27);
+        }
+
+        #liabilites h3 {
+            color: rgb(248, 197, 138);
+        }
+
+        .data {
+            margin-left: 2px;
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
+            /* border: 1px solid rgb(109, 109, 109); */
+            border-radius: 2px;
+
+        }
+
+        .data input {
+            margin: 10px
+        }
+
+        .total_income_container {
+            width: 100%;
+            height: 20px;
+            color: black;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+        .total_income_container span{
+            position: relative;
+           right: -70%;
+            color: greenyellow;
+        }
+
+        .input_and_chart_box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="boxx">
+        <div>
+            <div class="box1">
+                <div class="upper-clss" id="income">
+                    <h3>Income </h3>
+                    <% Data.forEach(function(data) { %>
+                        <spam id="income_spam" data-zip="<%=JSON.stringify(data)%>">
+                            <%=data.income%>
+                        </spam>
+                        <% }) %>
+                            <div class="total_income_container">
+                                <% let data=[5, 5, 5, 5, 5, 5, 5, 5, 5]; %>
+                                    <% let app; %>
+                                        <% for (var i=0; i <=Data.length - 1; i++) { %>
+                                            <% if (i==0) { %>
+                                                <% app=Data[i].income; %>
+                                                    <% } else { %>
+                                                        <% app=app + Data[i].income; %>
+                                                            <% } %>
+                                                                <% } %>
+                                                        
+                                                                    <span>   
+                                                                        <%=app%>
+                                                                    </span>
+                            </div>
+                </div>
+                <div class="upper-clss" id="expence">
+                    <h3>Expences</h3>
+                    <% Data.forEach(function(data) { %>
+                        <spam>
+                            <%=data.expences%>
+                        </spam>
+                        <% }) %>
+
+                            <div class="total_income_container">
+
+                            </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="box">
+                <div class="upper-clss" id="assets">
+                    <h3>Assets</h3>
+                    <% Data.forEach(function(data) { %>
+                        <spam>
+                            <%=data.assets%>
+                        </spam>
+                        <% }) %>
+                            <div class="total_income_container">
+
+                            </div>
+                </div>
+                <div class="upper-clss" id="liabilites">
+                    <h3>Liablities</h3>
+                    <% Data.forEach(function(data) { %>
+                        <spam>
+                            <%=data.liabilites%>
+                        </spam>
+                        <% }) %>
+                            <div class="total_income_container">
+
+                            </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="input_and_chart_box">
+        <div class="data">
+            <form action="/" method="POST">
+                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="income" placeholder="Income">
+                <input type="text" name="expences" placeholder="Expences">
+                <input type="text" name="assets" placeholder="Assets">
+                <input type="text" name="liabilites" placeholder="Liablilites">
+                <button type="submit" value="submit">Submit</button>
+            </form>
+        </div>
+        <canvas id="myChart" style="width:100%;max-width:2000px"></canvas>
+    </div>
+
+</body>
+<script src="/js/main.js"></script>
+
+</html>
